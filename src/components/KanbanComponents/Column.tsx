@@ -56,21 +56,20 @@ export default function Column({
   if (tasksLoading) return <p>Loading...</p>;
 
   return (
-    <div className="w-72 shrink-0 bg-primary px-5 rounded-md shadow-md transition-transform h-full">
+    <div className="w-72 shrink-0 bg-primary px-5 rounded-md shadow-md h-full flex flex-col">
       <div className="my-4 flex items-center justify-between">
         <h3 className="font-medium text-black">{column.name}</h3>
         <span className="rounded text-sm text-black">
           {tasksData?.filter(record => record.task.columnId === column.id).length ?? 0}
         </span>
       </div>
-
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDragEnter={handleDragEnter}
-        className={`w-full min-h-4 rounded-md transition-all duration-150 ease-in-out 
-          ${isOver ? 'bg-primary/60 scale-[1.01]' : 'bg-primary'}`}
+        className={`flex-1 overflow-y-auto rounded-md transition-all duration-150 ease-in-out space-y-2 pr-1
+          ${isOver ? 'bg-primary-main/60 scale-[1.01]' : 'bg-primary'}`}
       >
         {tasksData &&
           tasksData
@@ -85,10 +84,10 @@ export default function Column({
                 onDragStart={() => setDraggedTask(record.task)}
               />
             ))}
-
         {isOver && <DropIndicator beforeId={null} column={column.id} />}
-        <AddTask columnId={column.id} projectId={projectId!} refetch={refetchTasksData}/>
+        <AddTask columnId={column.id} projectId={projectId!} refetch={refetchTasksData} />
       </div>
     </div>
   );
+
 }
