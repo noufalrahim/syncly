@@ -8,9 +8,16 @@ import { useCreateData } from '@/hooks/useCreateData';
 import { ColumnType, TaskType } from '@/types';
 import { ColumnsWithColorUtil } from '@/lib/ColumnsWithColor';
 import { ColorGeneratorUtil } from '@/lib/ColorGeneratorUtil';
+import { TableView } from '@/components/TableComponents';
+import { useQueryClient } from '@tanstack/react-query';
+import { CalendarView } from '@/components/CalendarComponents';
+import { useState } from 'react';
 
 export default function Board() {
   const { projectId } = useParams();
+  const queryClient = useQueryClient();
+
+  const [boardItem, setBoardItem] = useState<'Kanban' | 'Table' | 'Calendar'>('Kanban');
 
   const {
     data: rawColumnsData,
@@ -34,10 +41,21 @@ export default function Board() {
     });
   };
 
+  const refetchTask = (colId: string) => {
+    queryClient.refetchQueries({
+      queryKey: ['tasks', `/tasks/fields/many?columnId=${colId}`],
+      type: 'active',
+    });
+  }
+
   const handleMoveTask = (task: TaskType, newColumnId: string) => {
     const updatedTask = { ...task, columnId: newColumnId };
     updateTaskMutate(updatedTask, {
-      onSuccess: () => refetchColumnData(),
+      onSuccess: () => {
+        refetchTask(task.columnId)
+        refetchTask(newColumnId)
+      },
+      onError: (err) => console.log('err', err)
     });
   };
 
@@ -52,15 +70,18 @@ export default function Board() {
 
   return (
     <div className="h-screen w-full flex flex-col">
-      <AppBar title="Kanban" description="Manage all your tasks here" />
+      <AppBar title={`${boardItem}`} description="Manage all your tasks here" />
       <div className="flex-1 p-6 overflow-hidden">
         <Tabs defaultValue="kanban" className="h-full w-full flex flex-col space-y-6">
-          <TabsList className="grid grid-cols-2 bg-gray-200 w-fit mb-0">
-            <TabsTrigger value="kanban" className="data-[state=active]:bg-white flex items-center gap-2">
+          <TabsList className="grid grid-cols-3 bg-gray-200 w-fit mb-0">
+            <TabsTrigger value="kanban" className="data-[state=active]:bg-white flex items-center gap-2" onClick={() => setBoardItem('Kanban')}>
               Kanban
             </TabsTrigger>
-            <TabsTrigger value="table" className="data-[state=active]:bg-white flex items-center gap-2">
+            <TabsTrigger value="table" className="data-[state=active]:bg-white flex items-center gap-2" onClick={() => setBoardItem('Table')}>
               Table
+            </TabsTrigger>
+            <TabsTrigger value="calendar" className="data-[state=active]:bg-white flex items-center gap-2" onClick={() => setBoardItem('Calendar')}>
+            Calendar
             </TabsTrigger>
           </TabsList>
           <div className="flex-1 overflow-y-auto">
@@ -71,14 +92,17 @@ export default function Board() {
                 onMoveTask={handleMoveTask}
                 onCardClick={handleCardClick}
                 projectId={projectId}
+                refetchTask={refetchTask}
+                refetchColumnData={refetchColumnData}
               />
             </TabsContent>
             <TabsContent value="table" className="h-full">
-              <KanbanBoard
-                columnsData={columnsData}
-                onCreateColumn={handleCreateColumn}
-                onMoveTask={handleMoveTask}
-                onCardClick={handleCardClick}
+              <TableView 
+                projectId={projectId}
+              />
+            </TabsContent>
+            <TabsContent value="calendar" className="h-full">
+              <CalendarView 
                 projectId={projectId}
               />
             </TabsContent>

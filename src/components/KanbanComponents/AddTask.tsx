@@ -26,7 +26,8 @@ export default function AddTask({ projectId, columnId, refetch }: AddTaskProps) 
     const newTask: Omit<TaskType, 'id'> = {
       title: text.trim(),
       columnId: columnId,
-      projectId: projectId
+      projectId: projectId,
+      priority: 'medium'
     };
 
     mutate(newTask, {

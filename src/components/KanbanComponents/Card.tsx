@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 import DropIndicator from './components/DropIndicator';
-import { Loader2, Trash2 } from 'lucide-react';
-import { ProjectType, TaskType } from '@/types';
+import { Trash2 } from 'lucide-react';
+import { ColumnType, ProjectType, TaskType } from '@/types';
 import { cn } from '@/lib/utils';
-import { useDeleteData } from '@/hooks/useDeleteData';
+import { Badge } from '../ui/badge';
+import { priorityFieldsGenerator } from '@/lib';
 
 interface CardProps {
   task: TaskType;
@@ -11,38 +12,31 @@ interface CardProps {
   onClick?: () => void;
   onDragStart?: () => void;
   color: string;
+  setOpen: (open: boolean) => void;
+  setSelectedTask: (selected: {
+    task: TaskType;
+    column: ColumnType;
+    project: ProjectType;
+  } | undefined) => void;
+  setOpenTaskWindow: (openTaskWindow: boolean) => void;
+  record: {
+    task: TaskType;
+    column: ColumnType;
+    project: ProjectType;
+  }
 };
 
-export default function Card({ task, project, onClick, onDragStart, color }: CardProps) {
-
-  const { mutate, 
-    isPending 
-  } = useDeleteData('/tasks');
-
-  const handleDelete = (id: string) => {
-    mutate({
-      id: id
-    },
-      {
-        onSuccess: () => {
-          console.log('deleted');
-        },
-        onError: (err) => {
-          console.log('err', err);
-        }
-      }
-    )
-  };
-
-  if(isPending){
-    return <Loader2 className='animate-spin'/>
-  }
+export default function Card({ task, project, onClick, onDragStart, color, setOpen, setSelectedTask, setOpenTaskWindow, record }: CardProps) {
 
   return (
     <div>
       <DropIndicator beforeId={task.id!} column={task.columnId} />
       <motion.div
-        onClick={onClick}
+        onClick={() => {
+          setSelectedTask(record);
+          setOpenTaskWindow(true);
+          onClick && onClick();
+        }}
         onDragStart={onDragStart}
         draggable
         layout
@@ -59,9 +53,13 @@ export default function Card({ task, project, onClick, onDragStart, color }: Car
 
         <div className="flex items-center justify-between gap-1">
           <p className="max-w-[90%] text-sm">{task.title}</p>
-          <Trash2 className="cursor-pointer" size={20} color="gray" onClick={() => handleDelete(task.id!)} />
+          <Trash2 className="cursor-pointer" size={20} color="gray" onClick={() => {
+            setSelectedTask(record)
+            setOpen(true)}} 
+          />
         </div>
-        <div className="flex items-center justify-between gap-1">
+        <div className="flex items-start justify-center flex-col gap-1">
+          <Badge variant="outline" className={cn(priorityFieldsGenerator(task.priority).color, 'rounded-full')}>{priorityFieldsGenerator(task.priority).label}</Badge>
           <span className="text-sm text-muted-foreground">{project.name}</span>
         </div>
       </motion.div>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, useSidebar } from '@/components/ui/sidebar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Calendar, ChevronDown, Kanban, Table2 } from 'lucide-react';
+import { ChevronDown, Cog, Kanban } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { ProjectType } from '@/types';
 
@@ -11,17 +11,14 @@ export interface CollapsibleContentsProps {
   defaultOpen: boolean;
 }
 
-export default function CollapsibleContentComponent ({ project, defaultOpen }: CollapsibleContentsProps){
-  
+export default function CollapsibleContentComponent({ project, defaultOpen }: CollapsibleContentsProps) {
+
   const { open } = useSidebar();
 
   const dispatch = useDispatch();
 
   const menuItems = [
-    { condition: true, title: 'Table', url: '/table', icon: <Table2 size={13} /> },
-    { condition: true, title: 'Kanban', url: `/${project.id}/kanban`, icon: <Kanban size={13} /> },
-    // { condition: project.showMindMap, title: 'MindMap', url: '/mindmap', icon: <BrainCircuitIcon size={13} /> },
-    { condition: true, title: 'Calendar', url: '/calendar', icon: <Calendar size={13} /> },
+    { condition: true, title: 'Board', url: `/${project.id}/kanban`, icon: <Kanban size={13} /> },
   ];
 
   return (
@@ -68,6 +65,25 @@ export default function CollapsibleContentComponent ({ project, defaultOpen }: C
                     </SidebarMenuSubItem>
                   ),
               )}
+              <SidebarMenuSubItem className="hover:bg-gray-200 rounded-md">
+                <SidebarMenuSubButton>
+                  <div
+                    className="flex w-full flex-row items-center gap-2"
+                    onClick={() => {
+                      dispatch({
+                        type: 'project/selected',
+                        payload: {
+                          id: project.id,
+                          name: project.name,
+                        },
+                      });
+                    }}
+                  >
+                    <Cog size={13}/>
+                    {open && <span className="text-sm">Settings</span>}
+                  </div>
+                </SidebarMenuSubButton>
+              </SidebarMenuSubItem>
             </SidebarMenuSub>
           </CollapsibleContent>
         </SidebarMenuItem>

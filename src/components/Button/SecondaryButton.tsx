@@ -20,7 +20,7 @@ export default function SecondaryButton({
     disabled = false
 }: SecondaryButtonProps) {
     return (
-        <Button variant={'outline'} disabled={disabled} className={cn('w-full text-primary-main border-primary-main hover:bg-primary-main/10 hover:text-primary-main', className)} onClick={(event) => {
+        <Button variant={'outline'} disabled={disabled} className={cn('w-full text-black border-primary-main hover:bg-gray-300 bg-gray-200', className)} onClick={(event) => {
             event.stopPropagation();
             if(onClick) {
                 onClick()
