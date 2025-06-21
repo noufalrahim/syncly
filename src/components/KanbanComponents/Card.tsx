@@ -27,7 +27,6 @@ interface CardProps {
 };
 
 export default function Card({ task, project, onClick, onDragStart, color, setOpen, setSelectedTask, setOpenTaskWindow, record }: CardProps) {
-
   return (
     <div>
       <DropIndicator beforeId={task.id!} column={task.columnId} />
@@ -59,7 +58,11 @@ export default function Card({ task, project, onClick, onDragStart, color, setOp
           />
         </div>
         <div className="flex items-start justify-center flex-col gap-1">
-          <Badge variant="outline" className={cn(priorityFieldsGenerator(task.priority).color, 'rounded-full')}>{priorityFieldsGenerator(task.priority).label}</Badge>
+          {
+            task.priority && (
+              <Badge variant="outline" className={cn(priorityFieldsGenerator(task.priority).color, 'rounded-full')}>{priorityFieldsGenerator(task.priority).label}</Badge>
+            )
+          }
           <span className="text-sm text-muted-foreground">{project.name}</span>
         </div>
       </motion.div>

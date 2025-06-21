@@ -28,7 +28,7 @@ export default {
         '3xs': '0.5rem',
       },
       colors: {
-        background: 'black',
+        background: 'white',
         foreground: 'gray',
         appBackground: 'white',
         appBackgroundDark: '#141414',

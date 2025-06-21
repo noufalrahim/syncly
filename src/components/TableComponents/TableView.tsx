@@ -92,11 +92,15 @@ export default function TableView({ projectId }: TableView) {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <Badge
-                    className={cn(priorityFieldsGenerator(record.task.priority).color, 'rounded-full text-[11px]')}
-                  >
-                    {priorityFieldsGenerator(record.task.priority).label}
-                  </Badge>
+                  {
+                    record.task.priority && (
+                      <Badge
+                        className={cn(priorityFieldsGenerator(record.task.priority).color, 'rounded-full text-[11px]')}
+                      >
+                        {priorityFieldsGenerator(record.task.priority).label}
+                      </Badge>
+                    )
+                  }
                 </TableCell>
                 <TableCell>
                 <Badge

@@ -115,7 +115,11 @@ export default function CalendarView({ projectId }: CalendarViewProps) {
                         <h4 className="text-sm">{record.task.description}</h4>
                       </div>
                       <div className="flex gap-2">
-                        <Badge className={cn(priorityFieldsGenerator(record.task.priority).color, 'rounded-full text-[11px]')}>{priorityFieldsGenerator(record.task.priority).label}</Badge>
+                        {
+                          record.task.priority && (
+                            <Badge className={cn(priorityFieldsGenerator(record.task.priority).color, 'rounded-full text-[11px]')}>{priorityFieldsGenerator(record.task.priority).label}</Badge>
+                          )
+                        }
                         <Badge className='bg-blue-600 text-white rounded-full cursor-pointer hover:bg-blue-700 text-[11px]'>{record.column.name}</Badge>
                       </div>
                     </div>
@@ -143,7 +147,11 @@ export default function CalendarView({ projectId }: CalendarViewProps) {
                       {new Date(record.task.createdAt!).toLocaleDateString()}
                     </p>
                     <div className="flex gap-2">
-                      <Badge className={cn(priorityFieldsGenerator(record.task.priority).color, 'rounded-full')}>{priorityFieldsGenerator(record.task.priority).label}</Badge>
+                      {
+                        record.task.priority && (
+                          <Badge className={cn(priorityFieldsGenerator(record.task.priority).color, 'rounded-full')}>{priorityFieldsGenerator(record.task.priority).label}</Badge>
+                        )
+                      }
                       <Badge>{record.column.name}</Badge>
                     </div>
                   </div>
