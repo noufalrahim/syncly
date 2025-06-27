@@ -28,7 +28,8 @@ export default function ProjectForm({ organisationId, refetch, setOpenModal }: P
   async function onSubmit(values: z.infer<typeof projectFormSchema>) {
     const newProject: Omit<ProjectType, 'id'> = {
       name: values.name,
-      organisationId: organisationId
+      organisationId: organisationId,
+      emoji: '🚀'
     };
 
     createProjectMutate(newProject, {

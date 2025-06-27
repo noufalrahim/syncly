@@ -22,7 +22,7 @@ export default function PrimaryButton({
     disabled = false
 }: PrimaryButtonProps) {
     return (
-        <Button variant={'default'} disabled={disabled} className={cn('w-full bg-black text-white hover:bg-black/80', className)} onClick={(event) => {
+        <Button variant={'default'} disabled={disabled} className={cn('w-full bg-blue-500 text-white hover:bg-blue-500/80', className)} onClick={(event) => {
             event.stopPropagation();
             if(onClick) {
                 onClick()

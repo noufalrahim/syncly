@@ -2,7 +2,7 @@ import { useState, DragEvent } from 'react';
 import DropIndicator from './components/DropIndicator';
 import { ColumnType, ProjectType, TaskType } from '@/types';
 import { useReadData } from '@/hooks/useReadData';
-import Card from './Card';
+import TaskCard from './TaskCard';
 import AddTask from './AddTask';
 import { Trash2 } from 'lucide-react';
 import { useDeleteData } from '@/hooks/useDeleteData';
@@ -116,13 +116,13 @@ export default function Column({
         <div className='flex items-center gap-2'>
           <h3 className="font-medium text-black">{column.name}</h3>
           <div className='min-h-5 min-w-5 p-1 aspect-square items-center justify-center flex bg-gray-300 rounded-full'>
-          <p className="text-[13px]">
-            {tasksData?.filter(record => record.task.columnId === column.id).length ?? 0}
-          </p>
+            <p className="text-[13px]">
+              {tasksData?.filter(record => record.task.columnId === column.id).length ?? 0}
+            </p>
           </div>
         </div>
         <div className='hover:bg-gray-300 items-center justify-center p-1 rounded-full' onClick={() => handleDelete(column.id)}>
-        <Trash2 size={16} className='text-gray-700'/>
+          <Trash2 size={16} className='text-gray-700' />
         </div>
       </div>
       <div
@@ -133,7 +133,7 @@ export default function Column({
           tasksData
             .filter(record => record.task.columnId === column.id)
             .map(record => (
-              <Card
+              <TaskCard
                 key={record.task.id}
                 task={record.task}
                 color={column.color!}

@@ -1,9 +1,13 @@
 export enum UrlEnum {
     home = '/',
     task = '/task',
+    settings = '/settings',
+    projectSettings = '//projects/:projectId/settings',
+    members = '/members',
+    notes = '/notes',
     inbox = '/inbox',
     notification = '/notification',
     login = '/login',
     default = '',
-    kanban = '/:projectId/kanban'
+    project = '/projects/:projectId'
 };

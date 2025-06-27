@@ -1,8 +1,10 @@
 import {
   ChevronDown,
+  Cog,
   Loader2,
   LogOut,
   PlusIcon,
+  Trash2,
 } from "lucide-react";
 import {
   Sidebar,
@@ -25,16 +27,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { PRIMARY_SIDEBAR_ITEMS, SECONDARY_SIDEBAR_ITEMS } from "@/constants/index";
 import { useReadData } from "@/hooks/useReadData";
 import { ProjectType } from "@/types";
-import { CollapsibleContentComponent, ProjectForm } from "./components";
+import { OrganisationForm, ProjectForm } from "./components";
 import { OrganisationType } from "@/types/OrganisationType";
 import { Modal } from "../Modal";
 import { useEffect, useState } from "react";
-import OrganisationForm from "./components/OrganisationForm";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu"
 
 export default function AppSidebar() {
   const [openModal, setOpenModal] = useState(false);
@@ -42,6 +49,8 @@ export default function AppSidebar() {
   const [selectedOrg, setSelectedOrg] = useState<OrganisationType | null>(null);
 
   const location = useLocation();
+
+  const navigate = useNavigate();
 
   const {
     data: orgData,
@@ -89,12 +98,12 @@ export default function AppSidebar() {
           <h1 className="text-2xl font-bold">Syncly</h1>
           <SidebarTrigger />
         </SidebarHeader>
-
         <SidebarMenu>
-          <SidebarMenuItem className="mx-2 rounded-sm hover:bg-gray-200">
+          <SidebarMenuItem className="mx-2 rounded-sm">
+            <SidebarGroupLabel>Organisarions</SidebarGroupLabel>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
+                <SidebarMenuButton className="hover:bg-blue-300 hover:text-white">
                   {selectedOrg?.name || "Select Organisation"}
                   <ChevronDown className="ml-auto" />
                 </SidebarMenuButton>
@@ -107,9 +116,7 @@ export default function AppSidebar() {
                       localStorage.setItem("orgId", record.id);
                       setSelectedOrg(record);
                     }}
-                    className={cn(
-                      selectedOrg?.id === record.id && "bg-gray-100 font-medium"
-                    )}
+                    className={cn(selectedOrg?.id === record.id ? "text-white bg-blue-400 hover:bg-blue-300" : "hover:bg-gray-200")}
                   >
                     {record.name}
                   </DropdownMenuItem>
@@ -124,14 +131,13 @@ export default function AppSidebar() {
             </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
-
         <SidebarContent className="bg-white">
           <SidebarGroup>
             <SidebarGroupLabel>Main</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {PRIMARY_SIDEBAR_ITEMS.map((item) => (
-                  <SidebarMenuItem key={item.title}>
+                  <SidebarMenuItem key={item.title} className="flex items-center justify-center rounded-md border border-dashed text-sm">
                     <SidebarMenuButton
                       asChild
                       className={cn(
@@ -164,17 +170,39 @@ export default function AppSidebar() {
                 />
               </SidebarGroupLabel>
               <SidebarGroupContent>
-                {projectsData?.length ? (
-                  projectsData.map((record, index) => (
-                    <CollapsibleContentComponent
-                      key={index}
-                      project={record.project}
-                      defaultOpen
-                    />
-                  ))
-                ) : (
-                  <p className="text-sm text-gray-500 px-3">No projects found</p>
-                )}
+                <SidebarMenu>
+                  {((projectsData && projectsData?.length > 0) &&
+                    projectsData.map((item, index) => (
+                      <ContextMenu key={index}>
+                        <ContextMenuTrigger>
+                          <SidebarMenuItem key={item.project.name} className="flex items-center justify-center rounded-md border border-dashed text-sm">
+                            <SidebarMenuButton asChild className={`py-5 hover:bg-blue-400 hover:text-white cursor-pointer ${location.pathname === `/projects/${item.project.id}` ? 'bg-blue-500 text-white' : ''}`} >
+                              <div className="flex items-center justify-start flex-row" onClick={() => navigate(`projects/${item.project.id}`)}>
+                                <div className="bg-gray-300 w-7 h-7 rounded-full items-center flex justify-center text-[13px]">{item.project.emoji}</div>
+                                <span>{item.project.name}</span>
+                              </div>
+                            </SidebarMenuButton>
+                          </SidebarMenuItem>
+                        </ContextMenuTrigger>
+                        <ContextMenuContent className="w-52 bg-white">
+                          <ContextMenuItem onClick={() => navigate(`/projects/${item.project.id}/settings`)} className="w-full items-center justify-start gap-2 hover:bg-gray-200 rounded-md">
+                            <Cog size={16} />
+                            <span>
+                              Settings
+                            </span>
+                          </ContextMenuItem>
+                          <ContextMenuItem className="w-full items-center justify-start gap-2 hover:bg-red-200 rounded-md text-red-500">
+                            <Trash2 size={16} />
+                            <span>
+                              Delete
+                            </span>
+                          </ContextMenuItem>
+                        </ContextMenuContent>
+                      </ContextMenu>
+                    ))) || (
+                      <p className="text-sm text-gray-500 px-3">No projects found</p>
+                    )}
+                </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
           )}

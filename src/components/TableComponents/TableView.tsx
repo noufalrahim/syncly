@@ -7,24 +7,20 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Filter, Loader2, Plus, Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
 import { useReadData } from '@/hooks/useReadData';
 import { ColumnType, ProjectType, TaskType } from '@/types';
-import { PrimaryButton } from '../Button';
 import { priorityFieldsGenerator } from '@/lib';
-import { cn } from '@/lib/utils';
-
+import Toolbar from './Toolbar';
+import { FlagIcon, GitBranch, Loader2 } from 'lucide-react';
+import { BadgeComponent } from '../BadgeComponent';
 interface TableView {
   projectId: string | undefined;
 };
 
 export default function TableView({ projectId }: TableView) {
 
-  if(!projectId){
+  if (!projectId) {
     return;
   }
 
@@ -34,38 +30,16 @@ export default function TableView({ projectId }: TableView) {
     column: ColumnType;
   }[]>('tasks', `/tasks/fields/many?projectId=${projectId}`);
 
-  if(tasksLoading){
-    return <Loader2 className='animate-spin'/>
+  if (tasksLoading) {
+    return <Loader2 className='animate-spin' />
   }
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
+    <div>
+      <div className="border-gray-500 border-dashed py-5 mb-10 border-y">
         <h1 className="text-2xl font-bold mb-2">{tasksData && tasksData[0]?.project.name} - Issues</h1>
-        {/* <p className="text-muted-foreground mb-4">{tasksData && tasksData[0]?.project.}</p> */}
-
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 flex-1">
-            <div className="relative flex-1 max-w-sm">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search issues..."
-                className="pl-10"
-              />
-            </div>
-            {/* <Button variant="outline" size="sm">
-              <Filter className="h-4 w-4 mr-2" />
-              Filter
-            </Button> */}
-            <PrimaryButton label='Filter' className='max-w-24' startIcon={<Filter />}/>
-          </div>
-          <Button size="sm">
-            <Plus className="h-4 w-4 mr-2" />
-            Create Issue
-          </Button>
-        </div>
+        <Toolbar />
       </div>
-
       <div className="border rounded-lg">
         <Table>
           <TableHeader>
@@ -74,7 +48,7 @@ export default function TableView({ projectId }: TableView) {
               <TableHead>Assignee</TableHead>
               <TableHead>Priority</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Created</TableHead>
+              <TableHead>Due Date</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -83,34 +57,27 @@ export default function TableView({ projectId }: TableView) {
                 <TableCell className="font-medium">{record.task.title}</TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    <Avatar className="h-6 w-6 bg-blue-600 text-white">
+                    <Avatar className="h-6 w-6 bg-gray-300 text-gray-700">
                       <AvatarFallback className="text-xs">
                         {/* {task.assignee.split(' ').map(n => n[0]).join('')} */}
                         N
                       </AvatarFallback>
                     </Avatar>
+                    <span className='font-semibold'>Noufal Rahim</span>
                   </div>
                 </TableCell>
                 <TableCell>
                   {
                     record.task.priority && (
-                      <Badge
-                        className={cn(priorityFieldsGenerator(record.task.priority).color, 'rounded-full text-[11px]')}
-                      >
-                        {priorityFieldsGenerator(record.task.priority).label}
-                      </Badge>
+                      <BadgeComponent title={priorityFieldsGenerator(record.task.priority).label} icon={FlagIcon} bgColor={priorityFieldsGenerator(record.task.priority).color} textColor={priorityFieldsGenerator(record.task.priority).textColor} />
                     )
                   }
                 </TableCell>
                 <TableCell>
-                <Badge
-                    className={'bg-blue-600 text-white hover:bg-blue-700 rounded-full text-[11px]'}
-                  >
-                    {record.column.name}
-                    </Badge>
+                  <BadgeComponent title={record.column.name} icon={GitBranch} bgColor={'bg-gray-100'} textColor={'text-gray-700'} />
                 </TableCell>
-                <TableCell className="text-muted-foreground">
-                  {record?.task?.createdAt ? new Date(record.task.createdAt).toDateString() : 'N/A'}
+                <TableCell className="text-gray-600">
+                  {record?.task?.dueDate ? new Date(record.task.dueDate).toDateString() : 'N/A'}
                 </TableCell>
               </TableRow>
             ))}
