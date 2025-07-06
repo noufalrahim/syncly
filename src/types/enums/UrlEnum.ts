@@ -2,7 +2,7 @@ export enum UrlEnum {
     home = '/',
     task = '/task',
     settings = '/settings',
-    projectSettings = '//projects/:projectId/settings',
+    projectSettings = '/projects/:projectId/settings',
     members = '/members',
     notes = '/notes',
     inbox = '/inbox',

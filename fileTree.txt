@@ -1,0 +1,343 @@
+┣ public/
+┣ src/
+┃ ┣ api/
+┃ ┃ ┣ services/
+┃ ┃ ┃ ┣ createData.ts
+┃ ┃ ┃ ┣ deleteData.ts
+┃ ┃ ┃ ┣ readData.ts
+┃ ┃ ┃ ┗ updateData.ts
+┃ ┃ ┗ apiClient.ts
+┃ ┣ assets/
+┃ ┃ ┗ react.svg
+┃ ┣ components/
+┃ ┃ ┣ AppBar/
+┃ ┃ ┃ ┣ AppBar.tsx
+┃ ┃ ┃ ┣ index.ts
+┃ ┃ ┃ ┗ types.ts
+┃ ┃ ┣ BadgeComponent/
+┃ ┃ ┃ ┣ BadgeComponent.tsx
+┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┣ Button/
+┃ ┃ ┃ ┣ PrimaryButton.tsx
+┃ ┃ ┃ ┣ SecondaryButton.tsx
+┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┣ CalendarComponents/
+┃ ┃ ┃ ┣ CalendarView.tsx
+┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┣ DialogModal/
+┃ ┃ ┃ ┣ DialogModal.tsx
+┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┣ KanbanComponents/
+┃ ┃ ┃ ┣ components/
+┃ ┃ ┃ ┃ ┣ BurnBarrel.tsx
+┃ ┃ ┃ ┃ ┣ DropIndicator.tsx
+┃ ┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┃ ┣ schema/
+┃ ┃ ┃ ┃ ┣ index.ts
+┃ ┃ ┃ ┃ ┗ labelFormSchema.ts
+┃ ┃ ┃ ┣ AddTask.tsx
+┃ ┃ ┃ ┣ Column.tsx
+┃ ┃ ┃ ┣ KanbanBoard.tsx
+┃ ┃ ┃ ┣ LabelForm.tsx
+┃ ┃ ┃ ┣ TaskCard.tsx
+┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┣ Layout/
+┃ ┃ ┃ ┣ Layout.tsx
+┃ ┃ ┃ ┣ index.ts
+┃ ┃ ┃ ┗ types.ts
+┃ ┃ ┣ Modal/
+┃ ┃ ┃ ┣ Modal.tsx
+┃ ┃ ┃ ┣ index.ts
+┃ ┃ ┃ ┗ types.ts
+┃ ┃ ┣ Scheduler/
+┃ ┃ ┃ ┣ components/
+┃ ┃ ┃ ┃ ┣ CustomToolbar.tsx
+┃ ┃ ┃ ┃ ┣ EventsCard.tsx
+┃ ┃ ┃ ┃ ┣ index.ts
+┃ ┃ ┃ ┃ ┗ types.ts
+┃ ┃ ┃ ┣ Scheduler.tsx
+┃ ┃ ┃ ┣ index.ts
+┃ ┃ ┃ ┗ types.ts
+┃ ┃ ┣ Sidebar/
+┃ ┃ ┃ ┣ api/
+┃ ┃ ┃ ┃ ┣ getProjects.ts
+┃ ┃ ┃ ┃ ┗ postProject.ts
+┃ ┃ ┃ ┣ components/
+┃ ┃ ┃ ┃ ┣ CollapsibleContentComponent.tsx
+┃ ┃ ┃ ┃ ┣ OrganisationForm.tsx
+┃ ┃ ┃ ┃ ┣ ProjectsForm.tsx
+┃ ┃ ┃ ┃ ┣ SideBarFooter.tsx
+┃ ┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┃ ┣ schema/
+┃ ┃ ┃ ┃ ┣ orgFormSchema.ts
+┃ ┃ ┃ ┃ ┗ projectFormSchema.ts
+┃ ┃ ┃ ┣ Sidebar.tsx
+┃ ┃ ┃ ┣ index.ts
+┃ ┃ ┃ ┗ types.ts
+┃ ┃ ┣ TableComponents/
+┃ ┃ ┃ ┣ TableView.tsx
+┃ ┃ ┃ ┣ Toolbar.tsx
+┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┣ TaskList/
+┃ ┃ ┃ ┣ api/
+┃ ┃ ┃ ┃ ┣ deleteTask.ts
+┃ ┃ ┃ ┃ ┣ getTasks.ts
+┃ ┃ ┃ ┃ ┗ updateTask.ts
+┃ ┃ ┃ ┣ schema/
+┃ ┃ ┃ ┃ ┗ formSchema.ts
+┃ ┃ ┃ ┣ TaskList.tsx
+┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┣ tiptap-extension/
+┃ ┃ ┃ ┣ link-extension.ts
+┃ ┃ ┃ ┣ selection-extension.ts
+┃ ┃ ┃ ┗ trailing-node-extension.ts
+┃ ┃ ┣ tiptap-icons/
+┃ ┃ ┃ ┣ align-center-icon.tsx
+┃ ┃ ┃ ┣ align-justify-icon.tsx
+┃ ┃ ┃ ┣ align-left-icon.tsx
+┃ ┃ ┃ ┣ align-right-icon.tsx
+┃ ┃ ┃ ┣ arrow-left-icon.tsx
+┃ ┃ ┃ ┣ ban-icon.tsx
+┃ ┃ ┃ ┣ block-quote-icon.tsx
+┃ ┃ ┃ ┣ bold-icon.tsx
+┃ ┃ ┃ ┣ chevron-down-icon.tsx
+┃ ┃ ┃ ┣ close-icon.tsx
+┃ ┃ ┃ ┣ code-block-icon.tsx
+┃ ┃ ┃ ┣ code2-icon.tsx
+┃ ┃ ┃ ┣ corner-down-left-icon.tsx
+┃ ┃ ┃ ┣ external-link-icon.tsx
+┃ ┃ ┃ ┣ heading-five-icon.tsx
+┃ ┃ ┃ ┣ heading-four-icon.tsx
+┃ ┃ ┃ ┣ heading-icon.tsx
+┃ ┃ ┃ ┣ heading-one-icon.tsx
+┃ ┃ ┃ ┣ heading-six-icon.tsx
+┃ ┃ ┃ ┣ heading-three-icon.tsx
+┃ ┃ ┃ ┣ heading-two-icon.tsx
+┃ ┃ ┃ ┣ highlighter-icon.tsx
+┃ ┃ ┃ ┣ image-plus-icon.tsx
+┃ ┃ ┃ ┣ italic-icon.tsx
+┃ ┃ ┃ ┣ link-icon.tsx
+┃ ┃ ┃ ┣ list-icon.tsx
+┃ ┃ ┃ ┣ list-ordered-icon.tsx
+┃ ┃ ┃ ┣ list-todo-icon.tsx
+┃ ┃ ┃ ┣ moon-star-icon.tsx
+┃ ┃ ┃ ┣ redo2-icon.tsx
+┃ ┃ ┃ ┣ strike-icon.tsx
+┃ ┃ ┃ ┣ subscript-icon.tsx
+┃ ┃ ┃ ┣ sun-icon.tsx
+┃ ┃ ┃ ┣ superscript-icon.tsx
+┃ ┃ ┃ ┣ trash-icon.tsx
+┃ ┃ ┃ ┣ underline-icon.tsx
+┃ ┃ ┃ ┗ undo2-icon.tsx
+┃ ┃ ┣ tiptap-node/
+┃ ┃ ┃ ┣ code-block-node/
+┃ ┃ ┃ ┃ ┗ code-block-node.scss
+┃ ┃ ┃ ┣ image-node/
+┃ ┃ ┃ ┃ ┗ image-node.scss
+┃ ┃ ┃ ┣ image-upload-node/
+┃ ┃ ┃ ┃ ┣ image-upload-node-extension.ts
+┃ ┃ ┃ ┃ ┣ image-upload-node.scss
+┃ ┃ ┃ ┃ ┣ image-upload-node.tsx
+┃ ┃ ┃ ┃ ┗ index.tsx
+┃ ┃ ┃ ┣ list-node/
+┃ ┃ ┃ ┃ ┗ list-node.scss
+┃ ┃ ┃ ┗ paragraph-node/
+┃ ┃ ┃   ┗ paragraph-node.scss
+┃ ┃ ┣ tiptap-templates/
+┃ ┃ ┃ ┗ simple/
+┃ ┃ ┃   ┣ data/
+┃ ┃ ┃ ┃ ┃ ┗ content.json
+┃ ┃ ┃   ┣ simple-editor.scss
+┃ ┃ ┃   ┣ simple-editor.tsx
+┃ ┃ ┃   ┗ theme-toggle.tsx
+┃ ┃ ┣ tiptap-ui/
+┃ ┃ ┃ ┣ blockquote-button/
+┃ ┃ ┃ ┃ ┣ blockquote-button.tsx
+┃ ┃ ┃ ┃ ┗ index.tsx
+┃ ┃ ┃ ┣ code-block-button/
+┃ ┃ ┃ ┃ ┣ code-block-button.tsx
+┃ ┃ ┃ ┃ ┗ index.tsx
+┃ ┃ ┃ ┣ color-highlight-button/
+┃ ┃ ┃ ┃ ┣ color-highlight-button.scss
+┃ ┃ ┃ ┃ ┣ color-highlight-button.tsx
+┃ ┃ ┃ ┃ ┗ index.tsx
+┃ ┃ ┃ ┣ color-highlight-popover/
+┃ ┃ ┃ ┃ ┣ color-highlight-popover.scss
+┃ ┃ ┃ ┃ ┣ color-highlight-popover.tsx
+┃ ┃ ┃ ┃ ┗ index.tsx
+┃ ┃ ┃ ┣ heading-button/
+┃ ┃ ┃ ┃ ┣ heading-button.tsx
+┃ ┃ ┃ ┃ ┗ index.tsx
+┃ ┃ ┃ ┣ heading-dropdown-menu/
+┃ ┃ ┃ ┃ ┣ heading-dropdown-menu.tsx
+┃ ┃ ┃ ┃ ┗ index.tsx
+┃ ┃ ┃ ┣ image-upload-button/
+┃ ┃ ┃ ┃ ┣ image-upload-button.tsx
+┃ ┃ ┃ ┃ ┗ index.tsx
+┃ ┃ ┃ ┣ link-popover/
+┃ ┃ ┃ ┃ ┣ index.tsx
+┃ ┃ ┃ ┃ ┣ link-popover.scss
+┃ ┃ ┃ ┃ ┗ link-popover.tsx
+┃ ┃ ┃ ┣ list-button/
+┃ ┃ ┃ ┃ ┣ index.tsx
+┃ ┃ ┃ ┃ ┗ list-button.tsx
+┃ ┃ ┃ ┣ list-dropdown-menu/
+┃ ┃ ┃ ┃ ┣ index.tsx
+┃ ┃ ┃ ┃ ┗ list-dropdown-menu.tsx
+┃ ┃ ┃ ┣ mark-button/
+┃ ┃ ┃ ┃ ┣ index.tsx
+┃ ┃ ┃ ┃ ┗ mark-button.tsx
+┃ ┃ ┃ ┣ text-align-button/
+┃ ┃ ┃ ┃ ┣ index.tsx
+┃ ┃ ┃ ┃ ┗ text-align-button.tsx
+┃ ┃ ┃ ┗ undo-redo-button/
+┃ ┃ ┃   ┣ index.tsx
+┃ ┃ ┃   ┗ undo-redo-button.tsx
+┃ ┃ ┣ tiptap-ui-primitive/
+┃ ┃ ┃ ┣ button/
+┃ ┃ ┃ ┃ ┣ button-colors.scss
+┃ ┃ ┃ ┃ ┣ button-group.scss
+┃ ┃ ┃ ┃ ┣ button.scss
+┃ ┃ ┃ ┃ ┣ button.tsx
+┃ ┃ ┃ ┃ ┗ index.tsx
+┃ ┃ ┃ ┣ dropdown-menu/
+┃ ┃ ┃ ┃ ┣ dropdown-menu.scss
+┃ ┃ ┃ ┃ ┣ dropdown-menu.tsx
+┃ ┃ ┃ ┃ ┗ index.tsx
+┃ ┃ ┃ ┣ popover/
+┃ ┃ ┃ ┃ ┣ index.tsx
+┃ ┃ ┃ ┃ ┣ popover.scss
+┃ ┃ ┃ ┃ ┗ popover.tsx
+┃ ┃ ┃ ┣ separator/
+┃ ┃ ┃ ┃ ┣ index.tsx
+┃ ┃ ┃ ┃ ┣ separator.scss
+┃ ┃ ┃ ┃ ┗ separator.tsx
+┃ ┃ ┃ ┣ spacer/
+┃ ┃ ┃ ┃ ┣ index.tsx
+┃ ┃ ┃ ┃ ┗ spacer.tsx
+┃ ┃ ┃ ┣ toolbar/
+┃ ┃ ┃ ┃ ┣ index.tsx
+┃ ┃ ┃ ┃ ┣ toolbar.scss
+┃ ┃ ┃ ┃ ┗ toolbar.tsx
+┃ ┃ ┃ ┗ tooltip/
+┃ ┃ ┃   ┣ index.tsx
+┃ ┃ ┃   ┣ tooltip.scss
+┃ ┃ ┃   ┗ tooltip.tsx
+┃ ┃ ┗ ui/
+┃ ┃   ┣ avatar.tsx
+┃ ┃   ┣ badge.tsx
+┃ ┃   ┣ button.tsx
+┃ ┃   ┣ calendar.tsx
+┃ ┃   ┣ card.tsx
+┃ ┃   ┣ checkbox.tsx
+┃ ┃   ┣ collapsible.tsx
+┃ ┃   ┣ command.tsx
+┃ ┃   ┣ context-menu.tsx
+┃ ┃   ┣ dialog.tsx
+┃ ┃   ┣ dropdown-menu.tsx
+┃ ┃   ┣ form.tsx
+┃ ┃   ┣ hover-card.tsx
+┃ ┃   ┣ input.tsx
+┃ ┃   ┣ label.tsx
+┃ ┃   ┣ popover.tsx
+┃ ┃   ┣ select.tsx
+┃ ┃   ┣ separator.tsx
+┃ ┃   ┣ sheet.tsx
+┃ ┃   ┣ sidebar.tsx
+┃ ┃   ┣ skeleton.tsx
+┃ ┃   ┣ table.tsx
+┃ ┃   ┣ tabs.tsx
+┃ ┃   ┣ textarea.tsx
+┃ ┃   ┗ tooltip.tsx
+┃ ┣ constants/
+┃ ┃ ┗ index.ts
+┃ ┣ forms/
+┃ ┃ ┣ schema/
+┃ ┃ ┃ ┣ TaskSchema.ts
+┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┣ TaskForm.tsx
+┃ ┃ ┗ index.ts
+┃ ┣ hooks/
+┃ ┃ ┣ useRoutePaths/
+┃ ┃ ┃ ┣ index.ts
+┃ ┃ ┃ ┗ useRoutePaths.tsx
+┃ ┃ ┣ use-cursor-visibility.ts
+┃ ┃ ┣ use-menu-navigation.ts
+┃ ┃ ┣ use-mobile.ts
+┃ ┃ ┣ use-mobile.tsx
+┃ ┃ ┣ use-tiptap-editor.ts
+┃ ┃ ┣ use-window-size.ts
+┃ ┃ ┣ useCreateData.ts
+┃ ┃ ┣ useDeleteData.ts
+┃ ┃ ┣ useModifyData.ts
+┃ ┃ ┗ useReadData.ts
+┃ ┣ lib/
+┃ ┃ ┣ AvatarFallback.ts
+┃ ┃ ┣ ColorGeneratorUtil.ts
+┃ ┃ ┣ ColumnsWithColor.ts
+┃ ┃ ┣ DateFormater.ts
+┃ ┃ ┣ index.ts
+┃ ┃ ┣ priorityFieldsGenerator.ts
+┃ ┃ ┣ tiptap-utils.ts
+┃ ┃ ┗ utils.ts
+┃ ┣ pages/
+┃ ┃ ┣ Board/
+┃ ┃ ┃ ┣ Board.tsx
+┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┣ Notes/
+┃ ┃ ┃ ┣ Notes.tsx
+┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┗ Projects/
+┃ ┃   ┣ Settings/
+┃ ┃ ┃ ┃ ┣ Settings.tsx
+┃ ┃ ┃ ┃ ┣ SettingsOverview.tsx
+┃ ┃ ┃ ┃ ┣ SettingsPeopleList.tsx
+┃ ┃ ┃ ┃ ┗ index.ts
+┃ ┃   ┣ Projects.tsx
+┃ ┃   ┗ index.ts
+┃ ┣ redux/
+┃ ┃ ┣ store.ts
+┃ ┃ ┗ userSlice.ts
+┃ ┣ router/
+┃ ┃ ┣ Paths/
+┃ ┃ ┃ ┣ index.ts
+┃ ┃ ┃ ┗ paths.ts
+┃ ┃ ┣ Router/
+┃ ┃ ┃ ┣ Router.tsx
+┃ ┃ ┃ ┗ index.ts
+┃ ┃ ┗ index.ts
+┃ ┣ styles/
+┃ ┃ ┣ _keyframe-animations.scss
+┃ ┃ ┗ _variables.scss
+┃ ┣ types/
+┃ ┃ ┣ enums/
+┃ ┃ ┃ ┣ PriorityEnum.ts
+┃ ┃ ┃ ┗ UrlEnum.ts
+┃ ┃ ┣ ColumnType.ts
+┃ ┃ ┣ LabelType.ts
+┃ ┃ ┣ OrganisationType.ts
+┃ ┃ ┣ ProjectType.ts
+┃ ┃ ┣ SidebarItemType.ts
+┃ ┃ ┣ TaskType.ts
+┃ ┃ ┣ UserType.ts
+┃ ┃ ┗ index.ts
+┃ ┣ App.css
+┃ ┣ App.tsx
+┃ ┣ constants.ts
+┃ ┣ index.css
+┃ ┣ main.tsx
+┃ ┗ vite-env.d.ts
+┣ .env
+┣ .gitignore
+┣ README.md
+┣ components.json
+┣ index.html
+┣ package-lock.json
+┣ package.json
+┣ postcss.config.js
+┣ tailwind.config.js
+┣ tsconfig.app.json
+┣ tsconfig.json
+┣ tsconfig.node.json
+┣ vercel.json
+┗ vite.config.ts
